@@ -37,8 +37,6 @@ def Pipeline(schedule: str, active: bool = True):
 
         def execute_job(self, job_name: str):
             """Execute a specific job in the pipeline with state sharing."""
-            self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
-
             # Initialize pipeline state
             if not hasattr(self, '_execution_state'):
                 self._execution_state = {
