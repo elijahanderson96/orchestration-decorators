@@ -2,9 +2,6 @@
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
-
 [project]
 name = "orchestration-decorators"
 version = "1.0.0"
@@ -26,7 +23,7 @@ classifiers = [
 ]
 keywords = ["pipeline", "orchestration", "decorators"]
 dependencies = [
-    "typing-extensions>=4.0.0; python_version<'3.9'"
+    "typing-extensions>=4.0.0 psutil ;python_version<'3.9'"
 ]
 requires-python = ">=3.8"
 
