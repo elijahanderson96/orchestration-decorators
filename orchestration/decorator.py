@@ -1,7 +1,10 @@
 import inspect
 import logging
+import time
 from functools import wraps
 from typing import Optional
+
+import psutil
 
 
 def Pipeline(schedule: str, active: bool = True):
@@ -36,10 +39,10 @@ def Pipeline(schedule: str, active: bool = True):
             }
 
         def execute_job(self, job_name: str):
-            """Execute a specific job in the pipeline with state sharing."""
+            """Execute a specific job in the pipeline with state sharing and resource tracking."""
             self.logger = logging.getLogger(f"{self.__class__.__module__}.{self.__class__.__name__}")
-            
-            # Initialize pipeline state
+            process = psutil.Process()
+
             if not hasattr(self, '_execution_state'):
                 self._execution_state = {
                     'current_job': job_name,
@@ -51,14 +54,34 @@ def Pipeline(schedule: str, active: bool = True):
             try:
                 for job in self._jobs:
                     if job.__name__ == job_name:
-                        # Execute job and track execution
+                        # Capture resource usage before
+                        start_time = time.time()
+                        cpu_before = process.cpu_percent(interval=None)
+                        mem_before = process.memory_info().rss  # in bytes
+
+                        # Execute job
                         result = job(self)
-                        self._execution_state['previous_jobs'].append({
+
+                        # Capture resource usage after
+                        duration = time.time() - start_time
+                        cpu_after = process.cpu_percent(interval=None)
+                        mem_after = process.memory_info().rss
+
+                        # Calculate CPU and memory usage
+                        cpu_used = cpu_after  # Note: cpu_percent() is per call and not a delta
+                        mem_used = (mem_after - mem_before) / (1024 * 1024)  # Convert to MB
+
+                        # Track execution info
+                        job_info = {
                             'name': job_name,
                             'success': True,
-                            'result': result
-                        })
-                        return result
+                            'result': result,
+                            'cpu_percent': cpu_used,
+                            'memory_delta_mb': round(mem_used, 2),
+                            'duration_sec': round(duration, 3)
+                        }
+                        self._execution_state['previous_jobs'].append(job_info)
+                        return job_info
 
                 raise ValueError(f"Job {job_name} not found in pipeline")
 
