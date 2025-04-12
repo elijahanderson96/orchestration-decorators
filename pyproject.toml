@@ -22,10 +22,11 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 keywords = ["pipeline", "orchestration", "decorators"]
-dependencies = [
-    "typing-extensions>=4.0.0 psutil ;python_version<'3.9'"
-]
+dynamic = ["dependencies"]
 requires-python = ">=3.8"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
 Homepage = "https://github.com/yourusername/orchestration-decorators"
