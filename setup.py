@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="orchestration-decorators",
     version="1.0.0",
-    packages=find_packages(where="orchestration", include=["orchestration_decorators*"]),
-    # package_dir={"": "orchestration"},
+    packages=find_packages(),
+    package_dir={"": "."},
     include_package_data=True,
     python_requires=">=3.8",
     install_requires=[
