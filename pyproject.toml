@@ -32,3 +32,6 @@ requires-python = ">=3.8"
 Homepage = "https://github.com/yourusername/orchestration"
 Documentation = "https://github.com/yourusername/orchestration#readme"
 Issues = "https://github.com/yourusername/orchestration/issues"
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
