@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "orchestration"
+name = "orchestration-decorators"
 version = "1.0.0"
 description = "Pipeline orchestration decorators for defining and executing data pipelines"
 readme = "README.md"
@@ -11,7 +11,7 @@ authors = [
     {name = "Elijah Anderson", email = "elijahanderson96@gmail.com"},
 ]
 license = "MIT"
-packages = ["orchestration"]
+packages = ["orchestration_decorators"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -29,9 +29,6 @@ dependencies = [
 requires-python = ">=3.8"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/orchestration"
-Documentation = "https://github.com/yourusername/orchestration#readme"
-Issues = "https://github.com/yourusername/orchestration/issues"
-[build-system]
-requires = ["setuptools>=42"]
-build-backend = "setuptools.build_meta"
+Homepage = "https://github.com/yourusername/orchestration-decorators"
+Documentation = "https://github.com/yourusername/orchestration-decorators#readme"
+Issues = "https://github.com/yourusername/orchestration-decorators/issues"
