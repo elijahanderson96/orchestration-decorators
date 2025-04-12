@@ -8,6 +8,10 @@ setup(
     include_package_data=True,
     python_requires=">=3.8",
     install_requires=[
+        "psutil>=7.0.0",
         "typing-extensions>=4.0.0; python_version<'3.9'",
     ],
+    extras_require={
+        'redis': ['redis>=4.0.0'],
+    },
 )
